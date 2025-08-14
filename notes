@@ -1,0 +1,35 @@
+notes: 
+
+ordre d'application des fonctions: 
+-	Stock de capital 
+* -	Variation des passifs financiers – en faisant que deltaL soit une fonction du revenu disponible de l’année précédente
+-	Passifs financiers
+-	Actifs financiers
+-	Revenus fonciers versés
+-	Revenus fonciters perçus
+-	Patrimoine immobilier 
+-	Impôts sur la fortune 
+-	Revenus bruts et nets 
+-	Excedent net d’exploitation
+-	Prestations sociales perçues
+-	Cotisations de sécurité socile
+-	Revenu imposable
+-	Impôts sur le revenu
+-	Revenu disponible
+-	Epargne brute
+-	Prêts 
+
+* pour résoudre la boucle, il faut donc surement changer la fonction suivante *
+def variation_in_households_financial_liabilities(current_liabilities):         (état actuel)
+    return ratio_liabilities_to_disposable_income() * households_disposable_income() - current_liabilities
+
+en créant - 
+
+def delayed_households_disposable_income_over_time(taxable_income_proj, delay=1):
+    return households_disposable_income(net_labor_income_proj, social_benefits_proj, income_tax_proj, property_income_paid, wealth_tax_proj).shift(Year=delay)
+
+et changeant
+
+def variation_in_households_financial_liabilities(current_liabilities):         
+    return ratio_liabilities_to_disposable_income() * delayed_households_disposable_income_over_time(taxable_income_proj, delay=1) - current_liabilities
+
