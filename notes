@@ -1,5 +1,12 @@
-notes: 
 
+to-do-list weekend:
+1. understand how to call a function from main in projection functions without using full def name 
+2. insert the imports (from main? - see solution to 1.) in the correct places (refer to Philippe's link) @projection.py 
+3. fix projection functions that don't output arrays (will probably need "for yr in years:" structure everywhere 
+4. fix structure of variation_liabilities to use disposable income_t-1 from 2014 
+
+
+POUR 2.
 ordre d'application des fonctions: 
 -	Stock de capital 
 * -	Variation des passifs financiers – en faisant que deltaL soit une fonction du revenu disponible de l’année précédente
@@ -19,6 +26,7 @@ ordre d'application des fonctions:
 -	Epargne brute
 -	Prêts 
 
+POUR 4.
 * pour résoudre la boucle, il faut donc surement changer la fonction suivante *
 def variation_in_households_financial_liabilities(current_liabilities):         (état actuel)
     return ratio_liabilities_to_disposable_income() * households_disposable_income() - current_liabilities
@@ -32,4 +40,7 @@ et changeant
 
 def variation_in_households_financial_liabilities(current_liabilities):         
     return ratio_liabilities_to_disposable_income() * delayed_households_disposable_income_over_time(taxable_income_proj, delay=1) - current_liabilities
+
+
+sinon, disp income -> variation liab -> liab -> property income paid -> disp income (circulaire)
 
