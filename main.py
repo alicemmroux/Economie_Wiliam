@@ -2,7 +2,7 @@ import projection
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
-    years = list(range(2016, 2050))
+    years = list(range(2014, 2050))
 
     #from K_stock
     capitalstock_proj = projection.households_capital_stock_over_time(years)
@@ -75,15 +75,6 @@ if __name__ == "__main__":
     # print(gov_budget["deficit"].sel(Year=2016))
     # print(gov_budget["interest"].sel(Year=2016))
 
-    # for country in gov_interest_total_by_country.coords["REGIONS_I"].values:
-    #     gov_interest_total_by_country.sel(REGIONS_I=country).plot(label=str(country))
-    #
-    # plt.legend(title="Country")
-    # plt.title("Interest over time — total by country")
-    # plt.xlabel("Year")
-    # plt.show()
-
-
     # print(fuel_transport_consumption_proj.sel(Year=2050))
     # print(air_transport_consumption_proj.sel(Year=2050))
     # print(disposable_income_proj.sel(Year=2050))
@@ -103,38 +94,50 @@ if __name__ == "__main__":
     # print("Disposable Income:")
     # print(disposable_income_proj.sel(Year=2040))
     # print("Financial Liabilities")
-    # print(liabilities_proj.sel(Year=2040))
+    # print(liabilities_proj.sel(Year=2030))
 
 
-# for hh in air_transport_consumption_proj["HOUSEHOLDS_I"].values:
-#     air_transport_consumption_proj.sel(REGIONS_I="IT", HOUSEHOLDS_I=hh) \
-#         .plot(x="Year", label=str(hh))
-#
-# plt.legend()
-# plt.title("Air transport consumption — IT by household")
+#code des graphiques présentés (ajuster les paramètres dans init en conséquence) :
+
+    #DEPENSES - TRANSPORTS POLLUANTS
+# series_2017 = air_transport_consumption_proj.sum(dim="HOUSEHOLDS_I").sel(Year=slice(2017, None))
+# series_2017.plot.line(x="Year", hue="REGIONS_I")
+# plt.title("Dépenses : transport aérien — total par pays (taxe carbone FR = 5%)")
+# plt.xlabel("Année")
 # plt.show()
 
-# for hh in air_transport_consumption_proj["HOUSEHOLDS_I"].values:
-#     air_transport_consumption_proj.sel(REGIONS_I="FR", HOUSEHOLDS_I=hh) \
-#         .plot(x="Year", label=str(hh))
-#
-# plt.legend()
-# plt.title("Air transport consumption — FR by household")
+# fuel_transport_consumption_proj.sel(REGIONS_I="FR", Year=slice(2017, None)) \
+#     .plot.line(x="Year", hue="HOUSEHOLDS_I")
+# plt.title("Dépenses transports carbonés (taxe carbone 10%) — France")
+# plt.xlabel("Année")
 # plt.show()
 
-# for hh in fuel_transport_consumption_proj["HOUSEHOLDS_I"].values:
-#     fuel_transport_consumption_proj.sel(REGIONS_I="FR", HOUSEHOLDS_I=hh) \
-#         .plot(x="Year", label=str(hh))
-#
-# plt.legend()
-# plt.title("Fuel-based transport consumption — FR by household")
+    #IMPÔTS SUR LA FORTUNE
+
+# tax_revenue_transport_proj = projection.tax_revenue_transport_consumption_hh(fuel_transport_consumption_proj, air_transport_consumption_proj)
+# disposable_income_proj.sel(REGIONS_I="FR", Year=slice(2017, None)) \
+#     .plot.line(x="Year", hue="HOUSEHOLDS_I")
+# plt.title("Revenu disponible (impôt sur la fortune 5%) — France")
+# plt.xlabel("Année")
 # plt.show()
 
-for country in air_transport_consumption_proj.sum(dim="HOUSEHOLDS_I").coords["REGIONS_I"].values:
-    air_transport_consumption_proj.sum(dim="HOUSEHOLDS_I").sel(REGIONS_I=country).plot(x="Year", label=str(country))
+# tax_revenue_transport_proj = projection.tax_revenue_transport_consumption_hh(fuel_transport_consumption_proj, air_transport_consumption_proj)
+# tax_revenue_transport_proj.sel(REGIONS_I="FR", Year=slice(2017, None)) \
+#     .plot.line(x="Year", hue="HOUSEHOLDS_I")
+# plt.title("Impôts perçus sur les transports (impôt sur la fortune 5%) — France")
+# plt.xlabel("Année")
+# plt.show()
 
-plt.legend(title="Country")
-plt.title("Air transport consumption — by country (total)")
-plt.xlabel("Year")
-plt.show()
+
+# gov_revenue_total_by_country.sel(Year=slice(2015, None)).plot.line(x="Year", hue="REGIONS_I")
+# plt.title("Recettes Publiques par pays (impôt sur la fortune 5%) ")
+# plt.xlabel("Année")
+# plt.show()
+
+    #DOMMAGES CLIMATIQUES
+
+# gov_deficit_total_by_country .sel(Year=slice(2015, None)).plot.line(x="Year", hue="REGIONS_I")
+# plt.title("Déficit public par pays")
+# plt.xlabel("Année")
+# plt.show()
 
