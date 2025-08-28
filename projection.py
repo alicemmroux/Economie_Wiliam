@@ -183,12 +183,10 @@ def consumption_households_fuel_transport(disposable_income_proj):
     return np.exp(np.log(disposable_income_proj)*init.income_elasticity_households_fuel_transport - \
                   np.log(init.price_households_fuel_transport * (1+init.carbon_tax) )* init.price_elasticity_households_fuel_transport )
 
-#GOVERNMENT - Work in Progress
-
 def households_gross_savings(disposable_income_proj):
     return disposable_income_proj - init.total_households_consumption_coicop
 
-
+#GOVERNMENT - Work in Progress
 def government_spending_basic_income(years):
     stock = init.households_basic_income * init.base_number_of_households_in_millions
     results = []
@@ -208,11 +206,11 @@ def tax_revenue_transport_consumption_hh(fuel_transport_consumption_proj, air_tr
     return ((fuel_transport_consumption_proj + air_transport_consumption_proj) * init.base_number_of_households_in_millions) * init.tax_rate_on_household_transport_consumption
 
 def government_revenue_over_time(social_benefits_proj, income_tax_proj, wealth_tax_proj, gov_revenue_transport_proj):
-    return (social_benefits_proj + income_tax_proj + wealth_tax_proj) * init.base_number_of_households_in_millions + init.government_property_income + gov_revenue_transport_proj + init.tax_rev_on_production
+    return (social_benefits_proj + income_tax_proj + wealth_tax_proj + init.government_property_income + init.tax_rev_on_production) * init.base_number_of_households_in_millions + gov_revenue_transport_proj
 
-# still need to add INVESTMENT and CONSUMPTION
+
 def government_primary_expenditure_over_time(social_benefits_proj, gov_investment_proj):
-    return (social_benefits_proj + init.households_other_transfers_received + init.households_basic_income + gov_investment_proj ) * init.base_number_of_households_in_millions + init.government_consumption
+    return (social_benefits_proj + init.households_other_transfers_received + init.households_basic_income + gov_investment_proj + init.government_consumption) * init.base_number_of_households_in_millions
 
 
 def government_investment_per_household_type(capitalstock_proj):
@@ -233,7 +231,7 @@ def gov_debt_update(debt_t, deficit_t):
     return debt_t + deficit_t
 
 def government_budget_over_time(years, gov_primary_expenditure, gov_revenue_proj):
-    debt = init.initial_government_debt  # start-of-year debt at first year
+    debt = init.initial_government_debt  * init.base_number_of_households_in_millions
     debt_out, interest_out, expend_out, deficit_out = [], [], [], []
 
     for yr in years:
