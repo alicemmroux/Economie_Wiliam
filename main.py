@@ -106,6 +106,7 @@ if __name__ == "__main__":
 # plt.xlabel("Année")
 # plt.show()
 
+
 # fuel_transport_consumption_proj.sel(REGIONS_I="FR", Year=slice(2017, None)) \
 #     .plot.line(x="Year", hue="HOUSEHOLDS_I")
 # plt.title("Dépenses transports carbonés (taxe carbone 10%) — France")
