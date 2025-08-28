@@ -1,6 +1,5 @@
 import xarray as xr
 
-
 _subscript_dict = {
     "HOUSEHOLDS_I": ["LowINC", "HighINC"],
     "REGIONS_I": ["FR", "IT"],

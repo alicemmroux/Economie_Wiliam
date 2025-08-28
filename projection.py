@@ -212,7 +212,6 @@ def government_revenue_over_time(social_benefits_proj, income_tax_proj, wealth_t
 def government_primary_expenditure_over_time(social_benefits_proj, gov_investment_proj):
     return (social_benefits_proj + init.households_other_transfers_received + init.households_basic_income + gov_investment_proj + init.government_consumption) * init.base_number_of_households_in_millions
 
-
 def government_investment_per_household_type(capitalstock_proj):
     return capitalstock_proj * init.climate_change_damage_rate_on_capital_stock
 
